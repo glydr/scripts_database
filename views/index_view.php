@@ -5,56 +5,63 @@
     <strong>Heads up!  You have reports missing metadata.  Please use the list below to update your reports as appropriate.</strong>
 </div>
 <?php include 'search_view.php'; ?>  
-<div id="filterMenuContainer">  
-    <a href="#tableBox" id="tableLink">Browse by Table</a>    
-    <a href="#targetBox" id="targetLink">Browse by Target Audience</a>    
-    <a href="#metaBox" id="metadataLink">Please Add Metadata</a>
-</div>
-<div style="display:none;">
-<div class="filterBox" id="tableBox" style="">
-    <ul>
-    <?php foreach ($tableCollection as $table): ?>
-        <li><a href="index.php?type=search&filter=table&searchFor=<?php echo $table->getName(); ?>"><?php echo $table->getName(); ?></a></li>
-    <?php endforeach; ?>
+<div id="filterMenuContainer">
+    <ul class="nav nav-pills nav-justified">
+        <li class="active"><a data-toggle='pill' href="#tableBox">Browse by Table</a></li>
+        <li><a data-toggle='pill' href="#targetBox">Browse by Target Audience</a></li> 
+        <li><a data-toggle='pill' href="#metaBox">Please Add Metadata</a></li>
     </ul>
 </div>
-<div class="filterBox" id="targetBox">
-    <ul>
-    <?php foreach ($targetCollection as $target): ?>
-        <li>
-            <a href="index.php?type=search&filter=target&searchFor=<?php echo $target->getDescription(); ?>">
-            <?php echo $target->getDescription() . ' (' . $target->getCount() . ')'; ?>
-            </a>
-        </li>
-    <?php endforeach; ?>
-    </ul>
-</div>
-<div class="filterBox" id="metaBox">
-    <ul>
-        <?php 
-        if($metaDataCollection != "") {
-            foreach ($metaDataCollection as $metaItem): ?>
-                <li><a href="index.php?type=edit_report&id=<?php echo $metaItem->getId();?>&version=<?php echo $metaItem->getVersion_id();?>">
-                <?php echo $metaItem->getName();?>
+<div class="tab-content">
+    <div class="filterBox tab-pane active" id="tableBox">
+        <ul>
+        <?php foreach ($tableCollection as $table): ?>
+            <li><a href="index.php?type=search&filter=table&searchFor=<?php echo $table->getName(); ?>"><?php echo $table->getName(); ?></a></li>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="filterBox tab-pane" id="targetBox">
+        <ul>
+        <?php foreach ($targetCollection as $target): ?>
+            <li>
+                <a href="index.php?type=search&filter=target&searchFor=<?php echo $target->getDescription(); ?>">
+                <?php echo $target->getDescription() . ' (' . $target->getCount() . ')'; ?>
                 </a>
             </li>
-    <?php endforeach; } ?>
-    </ul>
+        <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="filterBox tab-pane" id="metaBox">
+        <ul>
+            <?php 
+            if($metaDataCollection != "") {
+                foreach ($metaDataCollection as $metaItem): ?>
+                    <li><a href="index.php?type=edit_report&id=<?php echo $metaItem->getId();?>&version=<?php echo $metaItem->getVersion_id();?>">
+                    <?php echo $metaItem->getName();?>
+                    </a>
+                </li>
+        <?php endforeach; } ?>
+        </ul>
+    </div>
 </div>
-</div>
-<span class="stretch"></span>
 </div> <!--#meat-->
 <?php include 'common_footer.php'; ?>  
 
 <script type="text/javascript">
     $(document).ready(function() {
+
         if($("#metaBox.filterBox ul li").length && Cookies.get('meta_alert') != 1) {
             $("#metaDataAlert").fadeIn(1500);
             $("#metaDataAlert").removeClass("hidden");
         }
-        $("#tableLink").colorbox({inline:true, width:"50%", opacity:1});
-        $("#targetLink").colorbox({inline:true, width:"50%"});
-        $("#metadataLink").colorbox({inline:true, width:"50%"});
+        //$("#tableLink").colorbox({inline:true, width:"50%"});
+        //$("#targetLink").colorbox({inline:true, width:"50%"});
+        //$("#metadataLink").colorbox({inline:true, width:"50%"});
+    });
+
+    $('ul.nav.nav-pills li a').click(function() {           
+        $(this).parent().addClass('active').siblings().removeClass('active');
+        $(this).parent().addClass('active').siblings().removeClass('active');
     });
 
     $("#dismiss_button").click(function() {

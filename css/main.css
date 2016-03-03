@@ -137,14 +137,14 @@ div.searchBox {
 }
 
 div#filterMenuContainer {
+    border-top: 1px solid #afafaf;
+    padding-top: 20px;
     width:50%;
-    height:450px;
+    height:75px;
     margin:auto;
 }
 
 .filterBox {
-    height: 400px;
-    width: 450px;
     vertical-align: top;
     padding:0 10px;
 }
@@ -175,10 +175,6 @@ div.filterBox ul {
 
 div.filterBox li {
     list-style: none;
-}
-
-div.searchBox form {
-    margin-left: 40px;
 }
 
 div.searchResults {

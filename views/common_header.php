@@ -6,14 +6,12 @@
     <head>
         <title>Ascension Knowledge Repository</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="./css/colorbox.css" />
         <link rel="stylesheet" type="text/css" href="./css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css" />
         <link rel="stylesheet" type="text/css" href="./css/edit_report.css" />
         <link rel="stylesheet" type="text/css" href="./css/main.css" />
         <link href="http://10.8.46.131/favicon.ico" type="image/x-icon" rel="icon" />
         <script language="JavaScript" type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script language="JavaScript" type="text/JavaScript" src="./js/jquery.colorbox-min.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/js.cookie.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/jquery.validate.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/edit_report.js"></script>
