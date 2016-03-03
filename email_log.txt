@@ -1,0 +1,528 @@
+----------------------------------------------------
+To: Wendy.Litwinski@stjohn.org
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2548&version=4
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: asnow@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=425&version=5
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database -- Admin Task
+Body: A new user has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=user_edit&user_id=66
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: michael.burns@borgess.com
+Subject: North Region Scripts Database -- Admin Task
+Body: A new user has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=user_edit&user_id=66
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: JohnC.Clark@borgess.com
+Subject: North Region Scripts Database -- Admin Task
+Body: A new user has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=user_edit&user_id=66
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: art.sturdevant@borgess.com
+Subject: North Region Scripts Database -- Admin Task
+Body: A new user has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=user_edit&user_id=66
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Michael.Burns@borgess.com
+Subject: North Region Scripts Database -- Admin Task
+Body: A new user has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=user_edit&user_id=66
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Greg.Mixon@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2550&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Greg.Mixon@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2550&version=3
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Greg.Mixon@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2549&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Greg.Mixon@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2549&version=3
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Greg.Mixon@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5265&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1383&version=14
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1384&version=13
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Michael.Burns@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5266&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Michael.Burns@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5267&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Michael.Burns@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5268&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2568&version=3
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Michael.Burns@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2494&version=4
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2545&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: asnow@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1391&version=5
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Wendy.Litwinski@stjohn.org
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1986&version=5
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Wendy.Litwinski@stjohn.org
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=935&version=3
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: Wendy.Litwinski@stjohn.org
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5269&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2577&version=4
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5270&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5264&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5271&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1348&version=4
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2571&version=5
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1392&version=4
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5272&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5273&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2557&version=6
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: JohnC.Clark@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2581&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: JohnC.Clark@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=2581&version=3
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: JohnC.Clark@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=848&version=5
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5262&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: art.sturdevant@borgess.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5274&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1347&version=7
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=1347&version=8
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5275&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5276&version=1
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+
+----------------------------------------------------
+To: cmmiller@lourdes.com
+Subject: North Region Scripts Database
+Body: A new script or version has been added to the database.  Please follow this link and fill out the needed information.  http://10.8.46.131/index.php?type=edit_report&id=5263&version=2
+Headers: From: donotreply@ascension.org
+
+$sendToLog = 1
+$sendToTestEmail = 
+$sendToLiveEmail = 1
+
+----------------------------------------------------
+

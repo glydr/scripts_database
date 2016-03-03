@@ -1,0 +1,207 @@
+root { 
+    display: block;
+}
+
+#advancedSearchMenu {
+    padding-top:30px;
+}
+
+#metaDataAlert {
+    width:90%;
+    margin:auto;
+}
+
+#adv_search_btn_ctnr,#adv_search_opts {
+    position:relative;
+    padding-top:10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    width:100%;
+    max-width:91.42857em;
+}
+
+div#loginContainter {
+    width: 730px;
+    font-size: 13px;
+    margin-left: 20px;
+}
+
+div.login-control-left {
+    clear: left;
+    float: left;
+    width: 90px;
+}
+
+div.login-control-right {
+    float: left;
+    width: 200px;
+    
+}
+
+div.loginText {
+    font-weight: bold;
+    margin-top: 13px;
+    margin-right: 5px;
+}
+
+div.login-control-right input {
+    margin-top: 10px;
+}
+
+div.login-control-full {
+    clear: both;
+    padding-top: 17px;
+    margin-left: 100px;
+}
+
+div#pageHeader {
+    height: 50px;
+    margin-bottom: 50px;
+    padding: 3px;
+}
+
+div#pageHeader img {
+    float: left;
+    /*width: 10%;*/
+}
+
+div#pageHeader h1 {
+    float: left;
+    width: 45%;
+    margin-left: 25px;
+    margin-top: 8px;
+    font: 20px Verdana, Geneva, sans-serif;
+    
+}
+
+div.menuItem {
+    float: right;
+    width: 65px;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+div.searchBox {
+    padding:35px 0;
+    margin:auto;
+    width:50%;
+}
+
+div#filterContainer {
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+    height:450px;
+}
+
+.filterBox {
+    width: 350px;
+    height: 400px;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+    padding:0 10px;
+}
+
+.stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
+}
+
+div.filterBox h2 {
+    text-align: center;
+    font-size: 16pt;
+}
+
+div.filterBox ul {
+    padding: 5px;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid blue;
+    margin-left: 0px;
+}
+
+div.filterBox li {
+    list-style: none;
+}
+
+div.searchBox form {
+    margin-left: 40px;
+}
+
+div.searchResults {
+    margin-left: 30px;
+}
+
+div.searchResults li {
+    list-style: none;
+    margin-bottom: 35px;
+    width: 700px;
+}
+
+table#allUsers {
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+tr.tHead {
+    font-weight: bold;
+}
+
+table#allUsers td {
+    padding-right: 15px;
+}
+
+ul.pendingItems {
+    list-style: none;
+}
+
+table#allUsers td.active {
+    padding-left: 34px;
+}
+
+table#allUsers td.count {
+    padding-left: 110px;
+}
+
+table.allversions tr.headRow {
+    font-weight: bold;
+}
+
+table.allversions td {
+    padding-right: 15px;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+div.loginError {
+    clear: both;
+}
+
+div.loginError img {
+    float: left;
+}
+
+div.loginError .errorText {
+    float: left;
+    color: red;
+    clear: right;
+    margin-left: 10px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.marginize {
+    margin:0 0 20px 20px !important;
+}

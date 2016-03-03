@@ -1,0 +1,1628 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ad",
+				"advanced_search_opts"
+			],
+			[
+				"meta_al",
+				"meta_alert_flag"
+			],
+			[
+				"getver",
+				"getVersion_id	(SourceCodeMapper.php)"
+			],
+			[
+				"arr",
+				"array_search"
+			],
+			[
+				"mysql_fet",
+				"mysql_fetch_object"
+			],
+			[
+				"var",
+				"var_dump"
+			],
+			[
+				"getmy",
+				"getMy_person_id	(Session.php)"
+			],
+			[
+				"requ",
+				"require_once	(login.php)"
+			],
+			[
+				"require_",
+				"require_once($config_path	(config.php)"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "#COPYRIGHT AIS 2014\nimport os\nimport zipfile\nimport sqlparse\nfrom pyparsing import *\nimport re\nimport MySQLdb\nfrom datetime import datetime\nimport shutil\nimport pandas\nimport string\nfrom operator import itemgetter\nimport csv\nimport sys\n\ncsv.field_size_limit(sys.maxsize)\n\n\n\ndef attempt_close(f):\n    try:\n        f.close()\n    except:\n        pass\n\n#performs all work\ndef worker(ministry):\n    ###declarations\n\n    workingdir = \"/var/uploads/ccl_repo/ministry_uploads/\" + ministry + \"/\"\n    processingdir = workingdir + \"processing\"\n    sourcedir = workingdir + \"source\"\n    zipfileloc = workingdir + ministry + \".zip\"\n    archivedir = \"/var/uploads/ccl_repo/archive/\" + ministry + \"/\"\n    itemstoprocess = []\n    csvextract = []\n    mysqlupload = {}\n    ###create working directory\n    if not os.path.exists(workingdir):\n        os.mkdir(workingdir)\n\n    if not os.path.exists(processingdir):\n        os.mkdir(processingdir)\n    if not os.path.exists(sourcedir):\n        os.mkdir(sourcedir)\n    if not os.path.exists(archivedir):\n        os.mkdir(archivedir)\n    ###extract zip file to working directory\n    zipfiles = []\n    for root, dirname, files in os.walk(workingdir):\n        for file in files:\n            print file\n            if file.endswith(\".zip\"):\n                zipfiles.append(file)\n    for file in zipfiles:\n        if not os.path.exists(processingdir + \"/\" + file[:-4]):\n            os.mkdir(processingdir + \"/\" + file[:-4])\n        if not os.path.exists(sourcedir + \"/\" + file[:-4]):\n            os.mkdir(sourcedir + \"/\" + file[:-4])\n        with zipfile.ZipFile(workingdir + file, \"r\") as zf:\n            zf.extractall(processingdir + \"/\" + file[:-4])\n        with zipfile.ZipFile(workingdir + file, \"r\") as zf:\n            zf.extractall(sourcedir + \"/\" + file[:-4])\n\n    ###read incremental change report\n    colnames = ['datetime', 'user_full', 'username', 'email', 'binary_cnt', 'object', 'object_name']\n    data = pandas.read_csv((workingdir + ministry + \".csv\"), names=colnames)\n    datetimelist = list(data.datetime)\n    user_full = list(data.user_full)\n    usernames = list(data.username)\n    email = list(data.email)\n    binary = list(data.binary_cnt)\n    objects = list(data.object)\n    objnames = list(data.object_name)\n\n    data.sort()\n\n\n    ###parsing\n    anythingElse = Word(printables)\n    selectToken = CaselessKeyword(\"select\")\n    fromToken = CaselessKeyword(\"from\")\n    selectItem = Optional(Word(alphanums + \"_\" + \"=\" + \"(\" + \")\"))\n    fromItem = Word(alphanums + \"_\" + \"(\" + \")\")\n    fromspace = Optional(Word(' \\t'))\n    fromalias = Optional(Word(alphanums + \"=\" + \"-\" + \">\" + \"_\"))\n    optenders = oneOf(\"WHERE PLAN WITH ) END\")\n    dropkey = CaselessKeyword(\"DROP\")\n    programkey = CaselessKeyword(\"PROGRAM\")\n    spacekey = (\" \")\n    #create=Word(dropkey+OneOrMore(spacekey)+programkey)\n    scriptname = Word(alphanums + \"_\")\n    optdba = Optional(Optional(spacekey) + Word(\":\") + Optional(spacekey) + CaselessKeyword(\"DBA\"))\n    optgroup = Optional(Optional(spacekey) + Word(\":\") + Optional(spacekey) + CaselessKeyword(\"group1\"))\n    gocreate = Optional(CaselessKeyword(\"GOCREATE\"))\n    gostate = Optional(CaselessKeyword(\"go\"))\n    statement = fromToken.suppress() + delimitedList(\n        fromspace.suppress() + fromItem(\"fromm\") + fromspace.suppress() + fromalias.suppress())  # + optenders\n    createstate = dropkey.suppress() + Optional(OneOrMore(spacekey).suppress()) + programkey.suppress() + Optional(\n        OneOrMore(\n            spacekey).suppress()) + scriptname + optdba.suppress() + optgroup.suppress() + gocreate.suppress() + gostate.suppress()\n    comment = nestedExpr(\"/*\", \"*/\").suppress()\n    #inlinecomment=nestedExpr(\";\", LineEnd()).suppress()\n    #inlinecomment=Combine(\";\"+SkipTo(LineEnd()))\n    #ad_allergy_other_bmc_etc\n    for root, dirname, files in os.walk(processingdir):\n        for file in files:\n            if file.endswith(\".prg\"): #or file.endswith(\".ccl\")\n                tables = None\n                data = None\n                datablob = None\n                filepath = os.path.join(root, file)\n                sourceroot = root.replace('processing', 'source')\n                print file\n                sourcepath = os.path.join(sourceroot, file)\n                with open(filepath, 'r') as f:\n                    first_line = f.readline()\n                    whole_file = f.read()\n                if first_line.find(\"#/bin/ksh\") == -1 and whole_file.find(\"; Generated by VisualExplorer on\") == -1 and whole_file.find(\"Generated by translate command\")== -1:\n                    with open(sourcepath, 'r') as sourcefile:\n                        datablob = sourcefile.read()\n                        sourcefile.close()\n                    #with open(filepath, 'r') as f:\n                    #    data = f.read()\n                    #    dataprocess=comment.transformString(data)\n                    #    f.close()\n                    #    with open(filepath, 'w') as f:\n                    #        f.write(dataprocess)\n                    #        f.close()\n                    with open(filepath, 'r') as f:\n                        try:\n                            data = f.read()\n                            f.close()\n                            data = comment_remove(data)\n                            data = data.upper()\n                            data = data.replace('\\n', ' ')\n                            data = data.replace('\\t', ' ')\n                            with open(filepath, 'w') as f:\n                                f.write(data)\n                                f.close()\n                            if data.find(\" FROM \") > -1:\n                                iterr = re.finditer(\" FROM \", data)\n                                for match in iterr:\n                                    fromString = data[match.start():]\n                                    removelp = fromString.replace('(', '')\n                                    removerp = removelp.replace(')', '')\n                                    removespaces = \" \".join(removerp.split())\n                                    if removespaces.find('FROM \\\"') > -1:\n                                        continue\n                                    if removespaces.find(\"FROM \\'\") > -1:\n                                        continue\n                                    if removespaces.find(\"FROM :\") > -1:\n                                        continue\n                                    if removespaces.find(\"FROM >\") > -1:\n                                        continue\n                                    if removespaces.find(\"FROM <\") > -1:\n                                        continue\n                                    #print removespaces\n                                    dataprocess = statement.parseString(removespaces)\n\n                                    if tables is None:\n                                        tables = str(dataprocess) + \";\"\n\n                                    else:\n                                        tables = tables + str(dataprocess) + \";\"\n\n                                if tables is not None:\n                                    if tables.find(\"[\") > -1:\n                                        tables = string.replace(tables, \"[\", \"\")\n                                    if tables.find(\"]\") > -1:\n                                        tables = string.replace(tables, \"]\", \"\")\n                                    if tables.find(\"'\") > -1:\n                                        tables = string.replace(tables, \"'\", \"\")\n                                    if tables.find('\"') > -1:\n                                        tables = string.replace(tables, '\"', \"\")\n                                    if tables.find(\" \") > -1:\n                                        tables = string.replace(tables, \" \", \"\")\n                                    if tables.find(\",\") > -1:\n                                        tables = string.replace(tables, \",\", \";\")\n                                    #if tables.find(\", \")>-1:\n                                    #    tables = string.replace(tables,\", \",\";\")\n                                    tables = tables[:-1]\n                                    #print tables\n                            print \"breforeproc\"\n                            data = re.sub(\"\\s\\s+\" , \" \", data)\n                            if data.find(\"DROP PROGRAM\") > -1:\n                                iterrr = re.finditer(\"DROP PROGRAM\", data)\n                                for match2 in iterrr:\n                                    #print \"%s: %s\" % (match.start(), match.group(0))\n                                    fromString2 = data[match2.start():]\n                                    #data=fromString.replace('\\n',' ')\n                                    removelp2 = fromString2.replace('(', '')\n                                    removerp2 = removelp2.replace(')', '')\n                                    removespaces2 = \" \".join(removerp2.split())\n                                    removespaces2 = removespaces2.replace('\\t', ' ')\n                                    print \"midproc\"\n                                    #print \"BREAK\"\n                                    #print removespaces[:15]\n                                    #print removespaces.find('FROM \\\"')\n                                    #    try:\n                                    #        iterr.next()\n                                    #continue\n                                    #    except:\n                                    #        print \"pass\"\n                                    #        pass\n                                    #print removespaces\n                                    #try:\n                                    #print removespaces\n                                    #print removespaces[:15]\n                                    #if filepath!=\"C:\\Python27\\Scripts\\test\\custscript\\prg\\ahmo_physician_rounds_gv_72.prg\":\n                                    #print createstate.parseString(removespaces)\n                                    dataprocess2 = createstate.parseString(removespaces2)\n                                    #print dataprocess\n                                    objnameproc = str(dataprocess2)\n                                    #print objnameproc\n                                    objnameproc = objnameproc.lower()\n                                    if objnameproc.find(\"[\") > -1:\n                                        objnameproc = string.replace(objnameproc, \"[\", \"\")\n                                    if objnameproc.find(\"]\") > -1:\n                                        objnameproc = string.replace(objnameproc, \"]\", \"\")\n                                    if objnameproc.find(\"'\") > -1:\n                                        objnameproc = string.replace(objnameproc, \"'\", \"\")\n                                    #print objnameproc\n                                    for itemm in objnames:\n                                        if itemm.rstrip().lower() == objnameproc.lower():\n                                            #print itemm.rstrip().lower()\n                                            print objnameproc.lower()\n                                            #print objnames\n                                            #print user_full[objnames.index(objnameproc.lower())]\n                                            with open((processingdir + '/mysqlupload.csv'), 'a') as f:\n                                                writer = csv.writer(f, delimiter='~', quotechar=\"|\", quoting=csv.QUOTE_ALL)\n                                                writer.writerow([objnames[objnames.index(objnameproc.lower())], file,\n                                                                 usernames[objnames.index(objnameproc.lower())], tables, 0,\n                                                                 datetimelist[objnames.index(objnameproc.lower())],\n                                                                 datablob, ministry])\n                                                #y=y+1\n                        except:\n                            attempt_close(f)\n                            pass\n    #for w in sorted(mysqlupload, key=lambda x:(mysqlupload.get, sortlist)):\n    db = MySQLdb.connect(host=\"localhost\",  # your host, usually localhost\n                         user=\"upload\",  # your username\n                         passwd=\"LHup567%\",  # your password\n                         db=\"north_region_scripts\"  # name of the data base\n    )\n    # you must create a Cursor object. It will let\n    #  you execute all the query you need\n\n    #live sql statement\n    sql = '''\\\n    INSERT INTO extract (object_name, source_name, cerner_username, tables, processed_ind, created_dt_tm, source_code, ministry)\n    VALUES (%s, %s, %s, %s, %s, %s, %s, %s) \n    '''\n\n    #test sql statement\n    #sql='''\\\n    #INSERT INTO extract_test (object_name, source_name, cerner_username, tables, processed_ind, created_dt_tm, source_code, ministry)\n    #VALUES (%s, %s, %s, %s, %s, %s, %s, %s)\n    #'''\n    if os.path.isfile(processingdir + '/mysqlupload.csv'):\n        cur = db.cursor()\n        with open((processingdir + '/mysqlupload.csv'), 'r') as f:\n            reader = csv.reader(f, delimiter='~', quotechar=\"|\", quoting=csv.QUOTE_ALL)\n            for row in reader:\n                cur.execute(sql, row)\n        db.commit()\n        cur.close()\n        #print all the first cell of all the rows\n        #print mysqlupload\n        #cleanup\n        for root, dirs, files in os.walk(processingdir, topdown=False):\n            for name in files:\n                os.remove(os.path.join(root, name))\n            for name in dirs:\n                os.rmdir(os.path.join(root, name))\n        for root, dirs, files in os.walk(sourcedir, topdown=False):\n            for name in files:\n                os.remove(os.path.join(root, name))\n            for name in dirs:\n                os.rmdir(os.path.join(root, name))\n        archivezip = archivedir + str(datetime.date(datetime.now())) + \"_\" + ministry + \".zip\"\n        with zipfile.ZipFile(archivezip, 'w') as archzip:\n            os.chdir(workingdir)\n            for root, dirname, files in os.walk(workingdir):\n                for file in files:\n                    archzip.write(file)\n        archzip.close()\n        for root, dirs, files in os.walk(workingdir, topdown=False):\n            for name in files:\n                os.remove(os.path.join(root, name))\n            for name in dirs:\n                os.rmdir(os.path.join(root, name))\n    else:\n        print \"mysql file does not exist\"\n\n\ndef comment_remove(data):\n    return_var = data\n    return_var = re.sub(r\"\"\"\\/\\*[\\s\\S]*?\\*\\/|(\\;).*?$|^(\\!).*?$|\"[\\s\\S]*?\"|'[\\s\\S]*?'|\\^[\\s\\S]*?\\^|\\~[\\s\\S]*?\\~\"\"\", '', return_var, flags=re.MULTILINE)\n    #print return_var\n    return return_var\n\n\n\n#performs worker for each ministry that has uploaded\nministrydir = \"/var/uploads/ccl_repo/ministry_uploads/\"\nfor root, dirname, files in os.walk(ministrydir):\n    for file in files:\n        if file.endswith(\".csv\"):\n            ministry = file[:-4]\n            print ministry\n            worker(ministry)\n",
+			"file": "/H/cclrepobuilderlin.py",
+			"file_size": 15178,
+			"file_write_time": 130837989740000000,
+			"settings":
+			{
+				"buffer_size": 15179,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/LoginController.php",
+			"settings":
+			{
+				"buffer_size": 3507,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mappers/MetaMapper.php",
+			"settings":
+			{
+				"buffer_size": 1975,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "models/Metadata.php",
+			"settings":
+			{
+				"buffer_size": 407,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/common_header.php",
+			"settings":
+			{
+				"buffer_size": 2252,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index_view.php",
+			"settings":
+			{
+				"buffer_size": 2237,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "RegistryModule/Session.php",
+			"settings":
+			{
+				"buffer_size": 3656,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/search_view.php",
+			"settings":
+			{
+				"buffer_size": 422,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/main.css",
+			"settings":
+			{
+				"buffer_size": 2732,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models/DomainObject.php",
+			"settings":
+			{
+				"buffer_size": 585,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "classes/DataSearcher.php",
+			"settings":
+			{
+				"buffer_size": 2820,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 2735,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/IndexController.php",
+			"settings":
+			{
+				"buffer_size": 967,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/edit_report_view.php",
+			"settings":
+			{
+				"buffer_size": 5769,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/SearchController.php",
+			"settings":
+			{
+				"buffer_size": 2886,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "classes/TableSearchStrategy.php",
+			"settings":
+			{
+				"buffer_size": 800,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "login.php",
+			"settings":
+			{
+				"buffer_size": 2862,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "logout.php",
+			"settings":
+			{
+				"buffer_size": 398,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models/Version.php",
+			"settings":
+			{
+				"buffer_size": 2029,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/common_footer.php",
+			"settings":
+			{
+				"buffer_size": 34,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models/SourceCode.php",
+			"settings":
+			{
+				"buffer_size": 427,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/bootstrap.css",
+			"settings":
+			{
+				"buffer_size": 146086,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mappers/TableMapper.php",
+			"settings":
+			{
+				"buffer_size": 3933,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts_info.php",
+			"settings":
+			{
+				"buffer_size": 289,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "classes/CCLFormatter.php",
+			"settings":
+			{
+				"buffer_size": 1253,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "classes/Emailer.php",
+			"settings":
+			{
+				"buffer_size": 3293,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mappers/SourceCodeMapper.php",
+			"settings":
+			{
+				"buffer_size": 1793,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/version_view_inner.php",
+			"settings":
+			{
+				"buffer_size": 2091,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mappers/BaseMapper.php",
+			"settings":
+			{
+				"buffer_size": 1045,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 104.0,
+		"last_filter": "instal",
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"add",
+				"Package Control: Add Repository"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: add",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"php",
+				"Set Syntax: PHP"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/xampp/htdocs/scripts_database/classes/TableCollection.php",
+		"/C/xampp/htdocs/scripts_database/classes/TableSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/js/js.cookie.js",
+		"/C/xampp/htdocs/scripts_database/models/Metadata.php",
+		"/C/xampp/htdocs/scripts_database/views/report_view.php",
+		"/C/xampp/htdocs/scripts_database/controllers/LoginController.php",
+		"/C/xampp/htdocs/scripts_database/RegistryModule/Session.php",
+		"/C/xampp/htdocs/scripts_database/MySQLModule/class.database.php",
+		"/C/xampp/htdocs/scripts_database/mappers/AudienceMapper.php",
+		"/C/xampp/htdocs/scripts_database/classes/MetaCollection.php",
+		"/C/xampp/htdocs/scripts_database/login.php",
+		"/C/xampp/htdocs/scripts_database/classes/AudienceCollection.php",
+		"/C/xampp/htdocs/scripts_database/mappers/ReportMapper.php",
+		"/C/xampp/htdocs/scripts_database/models/Audience.php",
+		"/C/xampp/htdocs/scripts_database/models/Table.php",
+		"/C/xampp/htdocs/scripts_database/views/search_view.php",
+		"/C/xampp/htdocs/scripts_database/mappers/SourceCodeMapper.php",
+		"/C/xampp/htdocs/scripts_database/models/Ministry.php",
+		"/C/xampp/htdocs/scripts_database/controllers/SearchController.php",
+		"/C/xampp/htdocs/scripts_database/controllers/VersionViewController.php",
+		"/C/xampp/htdocs/scripts_database/classes/VersionEmailer.php",
+		"/C/xampp/htdocs/scripts_database/classes/SourceCodeSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/classes/QueueItemCollection.php",
+		"/C/xampp/htdocs/scripts_database/classes/NewUserEmailer.php",
+		"/C/xampp/htdocs/scripts_database/classes/ItemEmailer.php",
+		"/C/xampp/htdocs/scripts_database/classes/MinistryCollection.php",
+		"/C/xampp/htdocs/scripts_database/index.php",
+		"/C/xampp/htdocs/scripts_database/scripts_info.php",
+		"/C/xampp/htdocs/scripts_database/config.php",
+		"/C/xampp/htdocs/scripts_database/views/index_view.php",
+		"/C/xampp/htdocs/scripts_database/classes/DataSearcher.php",
+		"/C/xampp/htdocs/scripts_database/classes/VersionDescriptionSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/mappers/TableMapper.php",
+		"/C/xampp/htdocs/scripts_database/classes/ReportDescriptionSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/classes/TargetAudienceSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/classes/TitleSearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/interfaces/ISearchStrategy.php",
+		"/C/xampp/htdocs/scripts_database/RegistryModule/RequestCommandChain.php",
+		"/C/xampp/htdocs/scripts_database/mappers/MinistryMapper.php",
+		"/C/xampp/htdocs/scripts_database/mappers/BaseMapper.php",
+		"/C/xampp/htdocs/scripts_database/views/search_result_view.php",
+		"/C/xampp/htdocs/scripts_database/models/Version.php",
+		"/C/xampp/htdocs/scripts_database/MySQLModule/class.insert_query.php",
+		"/C/xampp/htdocs/scripts_database/models/User.php",
+		"/C/xampp/htdocs/scripts_database/views/common_header.php",
+		"/C/xampp/htdocs/scripts_database/views/common_footer.php",
+		"/C/xampp/htdocs/scripts_database/info.php",
+		"/C/xampp/htdocs/scripts_database/merger.php",
+		"/C/xampp/htdocs/scripts_database/logout.php",
+		"/C/xampp/htdocs/scripts_database/ExtractMonitor.php",
+		"/C/xampp/htdocs/scripts_database/test.php",
+		"/C/xampp/htdocs/scripts_database/migration.php",
+		"/C/xampp/phpMyAdmin/config.inc.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"C:\\xampp\\htdocs\\scripts_database"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"tablecollection",
+			"gettables",
+			"tables used:",
+			"setMy_person_id",
+			"session",
+			"data",
+			"cerner_us",
+			"created_dt_tm",
+			"tablebox",
+			"searchFor",
+			"type=search",
+			"label",
+			" class=\"label\"",
+			"95px",
+			"setid",
+			"setversion_id",
+			"metamapper",
+			"metaitem",
+			"findallmissingmetadata",
+			"em",
+			"meat",
+			"jquery",
+			"getseq()",
+			"admin",
+			"email",
+			"query(",
+			"getmy_person_id",
+			"session.gc_max",
+			"session",
+			"mysqlconnect",
+			"tablecollection",
+			"setID(",
+			"class Metadata",
+			"Metadata",
+			"find(",
+			"searchFor",
+			"runCommand",
+			"select * from",
+			"setMy_person_id("
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/H/cclrepobuilderlin.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15179,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1263,
+								1263
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1665.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "controllers/LoginController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3507,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1289,
+								1289
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "mappers/MetaMapper.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1975,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								881,
+								881
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "models/Metadata.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 407,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/common_header.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								944,
+								944
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/index_view.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2237,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1233,
+								1233
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "RegistryModule/Session.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3656,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1127,
+								1127
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "views/search_view.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 422,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								422,
+								422
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "css/main.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2732,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								397,
+								409
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "models/DomainObject.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 585,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "classes/DataSearcher.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								679,
+								679
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "index.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2735,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1903,
+								1903
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "controllers/IndexController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 967,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								543,
+								543
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "views/edit_report_view.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5769,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1018,
+								1032
+							],
+							[
+								1193,
+								1207
+							],
+							[
+								1492,
+								1506
+							],
+							[
+								2209,
+								2223
+							],
+							[
+								2960,
+								2974
+							],
+							[
+								3227,
+								3241
+							],
+							[
+								3394,
+								3408
+							],
+							[
+								3785,
+								3799
+							],
+							[
+								3956,
+								3970
+							],
+							[
+								4273,
+								4287
+							],
+							[
+								4460,
+								4474
+							],
+							[
+								4627,
+								4641
+							],
+							[
+								4925,
+								4939
+							],
+							[
+								5291,
+								5305
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "controllers/SearchController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2886,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								546,
+								546
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "classes/TableSearchStrategy.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 800,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "login.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2862,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								948,
+								948
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 315.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "logout.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								339,
+								339
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "models/Version.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								518,
+								518
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "views/common_footer.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 34,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "models/SourceCode.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 427,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "css/bootstrap.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 146086,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								98179,
+								98179
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 72266.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "mappers/TableMapper.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3933,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								948,
+								948
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 990.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "scripts_info.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 289,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "classes/CCLFormatter.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1253,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "classes/Emailer.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								624,
+								624
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "mappers/SourceCodeMapper.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1793,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								625,
+								625
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "views/version_view_inner.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2091,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1339,
+								1340
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".#",
+									"selector": "text.html"
+								}
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 57.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "mappers/BaseMapper.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1045,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.CSS Extended Completions":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "cclDatabase.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

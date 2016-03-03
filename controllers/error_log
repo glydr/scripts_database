@@ -1,0 +1,2 @@
+[05-Feb-2014 13:02:57 America/Denver] PHP Warning:  ldap_bind(): Unable to bind to server: Can't contact LDAP server in /home1/milltwos/public_html/scripts/controllers/LoginController.php on line 34
+[05-Feb-2014 13:03:34 America/Denver] PHP Warning:  ldap_bind(): Unable to bind to server: Can't contact LDAP server in /home1/milltwos/public_html/scripts/controllers/LoginController.php on line 34

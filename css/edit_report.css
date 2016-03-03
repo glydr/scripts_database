@@ -1,0 +1,102 @@
+/* 
+    Document   : edit_report
+    Created on : Jan 8, 2014, 8:15:17 PM
+    Author     : CMMiller
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    font: 15px Verdana, Geneva, sans-serif;
+    color: #11376E;
+}
+
+div.editReportSection {
+    width: 900px;
+    padding: 1px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+div.reportRow {
+    width: 880px;
+    clear: both;
+    padding: 1px;
+    margin-bottom: 9px;
+}
+
+/* For modern browsers */
+.reportRow:before,
+.reportRow:after {
+    content:"";
+    display:table;
+}
+.reportRow:after {
+    clear:both;
+}
+
+div.label {
+    float: left;
+    width: 200px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+div.data {
+    float: left;
+    width: 600px;
+}
+
+div.data ul {
+    padding-left: 0px;
+    float: left;
+    width: 550px;
+}
+
+div.data li {
+    list-style: none;
+}
+
+div#buttonRow {
+    clear: left;
+    margin-left: 252px;
+}
+
+div.editReportSection input.text {
+    width: 300px;
+}
+
+div.editReportSection input.checkbox {
+    width: 15px;
+}
+
+div.editReportSection textarea {
+    width: 300px;
+    height: 100px;
+}
+
+label.error {
+    background-image: url('../images/exclamation.png');
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    padding-top: 5px;
+    float: left;
+    width: 550px;
+    color: red;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    height: 30px;
+}
+
+span.required {
+    color: red;
+}
+
+div.version {
+    border: 1px solid black;
+    margin-bottom: 3px;
+}
