@@ -75,6 +75,7 @@ if (isset($_GET['error']) && !empty($_GET['error'])) {
 </div>
 <?php include './views/common_footer.php'; ?>
 <script type="text/javascript">
+    $('#menuContainer').css('display','none');
     $('body').css('background-color', '#F1F1F1');
 
     $('#visitorLoginLink').click(function() {
