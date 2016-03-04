@@ -74,7 +74,7 @@ root {
 }
 
 div#pageHeader {
-    height: 50px;
+    height: 55px;
     margin-bottom: 50px;
     padding: 3px;
     position: relative;
@@ -112,7 +112,7 @@ div#pageHeader h1 {
     flex-grow: 1;
     flex-basis: auto;
     margin: .25em 0;
-    padding: 0 1em;
+    padding: 0 10px 0 10px;
     text-align: center;
     border-left: 1px solid #ccc;
 }
@@ -138,15 +138,15 @@ div.searchBox {
 
 div#filterMenuContainer {
     border-top: 1px solid #afafaf;
-    padding-top: 20px;
+    padding: 20px 0 75px 0;
     width:50%;
     height:75px;
     margin:auto;
 }
 
 .filterBox {
-    vertical-align: top;
-    padding:0 10px;
+    margin:auto;
+    width:50%;
 }
 
 .filterBox h2 {
@@ -169,7 +169,7 @@ div.filterBox ul {
     padding: 5px;
     height: 300px;
     overflow-y: scroll;
-    border: 1px solid blue;
+    border: 1px solid grey;
     margin-left: 0px;
 }
 

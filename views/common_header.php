@@ -1,5 +1,8 @@
 <?php
-
+            if(isset($metaDataCollection) && $metaDataCollection != "") {
+                foreach ($metaDataCollection as $metaItem): 
+                    $session->setMetadataCount($session->getMetadataCount() + 1);
+                endforeach; } 
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +20,7 @@
         <script language="JavaScript" type="text/JavaScript" src="./js/edit_report.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/edit_user.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/bootstrap.js"></script>
+        
     </head>
     <body class="wrapper">
         
@@ -39,7 +43,10 @@
                                 <div class="menuItem"><a href="index.php?type=user_view_all">Admin</a></div>
                             </li>
                         <?php } ?>
-                    <li><div class="menuItem" id="loginOutLink">
+                            <li id="metadataListItem">
+                                <div class="menuItem"><a href="index.php?type=metadata">Add Metadata</a> [<span id="metadataDiv"></span>]</div>
+                            </li>
+                            <li><div class="menuItem" id="loginOutLink">
                         <?php
                             if (isset($_SESSION['my_person_id'])) {
                                 echo('<a href="logout.php">Logout</a>');

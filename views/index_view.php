@@ -1,27 +1,25 @@
 <?php include 'common_header.php'; ?>
 <div id="meat">
-<div id="metaDataAlert" class="text-center hidden alert alert-info alert-dismissible fade in" role="alert">
-    <button id="dismiss_button" type="button" class="close" data-dismiss="alert" aria-label="Dismiss"><span aria-hidden="true">&times;</span></button>
-    <strong>Heads up!  You have reports missing metadata.  Please use the list below to update your reports as appropriate.</strong>
-</div>
+
 <?php include 'search_view.php'; ?>  
+<p style="font-style: italic; width:100px;margin:auto;padding-bottom: 20px;font-size: 22px;">or...</p>
 <div id="filterMenuContainer">
     <ul class="nav nav-pills nav-justified">
         <li class="active"><a data-toggle='pill' href="#tableBox">Browse by Table</a></li>
         <li><a data-toggle='pill' href="#targetBox">Browse by Target Audience</a></li> 
-        <li><a data-toggle='pill' href="#metaBox">Please Add Metadata</a></li>
     </ul>
 </div>
 <div class="tab-content">
-    <div class="filterBox tab-pane active" id="tableBox">
-        <ul>
+    <div style="width:45%;margin:auto;padding-bottom: 10px;"><input class="form-control" placeholder="Filter..." type="text" onkeyup="filter(this)" /></div>
+    <div class="filterBox tab-pane fade in active" id="tableBox">
+        <ul class="list">
         <?php foreach ($tableCollection as $table): ?>
             <li><a href="index.php?type=search&filter=table&searchFor=<?php echo $table->getName(); ?>"><?php echo $table->getName(); ?></a></li>
         <?php endforeach; ?>
         </ul>
     </div>
-    <div class="filterBox tab-pane" id="targetBox">
-        <ul>
+    <div class="filterBox tab-pane fade" id="targetBox">
+        <ul class="list">
         <?php foreach ($targetCollection as $target): ?>
             <li>
                 <a href="index.php?type=search&filter=target&searchFor=<?php echo $target->getDescription(); ?>">
@@ -31,40 +29,25 @@
         <?php endforeach; ?>
         </ul>
     </div>
-    <div class="filterBox tab-pane" id="metaBox">
-        <ul>
-            <?php 
-            if($metaDataCollection != "") {
-                foreach ($metaDataCollection as $metaItem): ?>
-                    <li><a href="index.php?type=edit_report&id=<?php echo $metaItem->getId();?>&version=<?php echo $metaItem->getVersion_id();?>">
-                    <?php echo $metaItem->getName();?>
-                    </a>
-                </li>
-        <?php endforeach; } ?>
-        </ul>
-    </div>
 </div>
 </div> <!--#meat-->
 <?php include 'common_footer.php'; ?>  
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-        if($("#metaBox.filterBox ul li").length && Cookies.get('meta_alert') != 1) {
-            $("#metaDataAlert").fadeIn(1500);
-            $("#metaDataAlert").removeClass("hidden");
-        }
-        //$("#tableLink").colorbox({inline:true, width:"50%"});
-        //$("#targetLink").colorbox({inline:true, width:"50%"});
-        //$("#metadataLink").colorbox({inline:true, width:"50%"});
     });
 
-    $('ul.nav.nav-pills li a').click(function() {           
-        $(this).parent().addClass('active').siblings().removeClass('active');
-        $(this).parent().addClass('active').siblings().removeClass('active');
-    });
+    function filter(element) {
+        var value = $(element).val().toUpperCase();
 
-    $("#dismiss_button").click(function() {
-        Cookies.set('meta_alert','1', {expires:1,path:'/'});
-    })
+        $(".list > li").each(function() {
+            if ($(this).text().toUpperCase().search(value) > -1) {
+                $(this).show();
+            }
+            else {
+                $(this).hide();
+            }
+        });
+    }
+
 </script>

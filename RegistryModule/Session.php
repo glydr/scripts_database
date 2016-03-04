@@ -9,6 +9,7 @@ class Session
     protected $mode;
     protected $is_ccl_writer;
     protected $is_admin;
+    protected $metadataCount = 0;
     
     function __construct() {
         if (isset($_SESSION['my_person_id']) && !empty($_SESSION['my_person_id'])) {
@@ -39,6 +40,15 @@ class Session
         }   
     }
     
+    public function getMetadataCount () {
+        return $this->metadataCount;
+    }
+
+    public function setMetadataCount($metadataCount) {
+        $this->metadataCount = $metadataCount;
+        $_SESSION['metadataCount'] = $metadataCount;
+    }
+
     public function getMy_person_id() {
         return $this->my_person_id;
     }

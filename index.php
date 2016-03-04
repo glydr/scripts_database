@@ -67,6 +67,7 @@ $cmdChain->addCommand( new UserViewController() );
 $cmdChain->addCommand( new UserAllViewController() );
 $cmdChain->addCommand( new UserNewController() );
 $cmdChain->addCommand( new UserCreateController() );
+$cmdChain->addCommand( new MetadataController() );
 
 // Execute the request against the command chain
 $cmdChain->runCommand($request);
