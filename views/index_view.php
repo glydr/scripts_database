@@ -5,12 +5,12 @@
 <p style="font-style: italic; width:100px;margin:auto;padding-bottom: 20px;font-size: 22px;">or...</p>
 <div id="filterMenuContainer">
     <ul class="nav nav-pills nav-justified">
-        <li class="active"><a data-toggle='pill' href="#tableBox">Browse by Table</a></li>
-        <li><a data-toggle='pill' href="#targetBox">Browse by Target Audience</a></li> 
+        <li class="filterli active"><a data-toggle='pill' href="#tableBox">Browse by Table</a></li>
+        <li class="filterli"><a data-toggle='pill' href="#targetBox">Browse by Target Audience</a></li> 
     </ul>
 </div>
 <div class="tab-content">
-    <div style="width:45%;margin:auto;padding-bottom: 10px;"><input class="form-control" placeholder="Filter..." type="text" onkeyup="filter(this)" /></div>
+    <div style="width:45%;margin:auto;padding-bottom: 10px;"><input id="filterInput" class="form-control" placeholder="Filter..." type="text" onkeyup="filter(this)" /></div>
     <div class="filterBox tab-pane fade in active" id="tableBox">
         <ul class="list">
         <?php foreach ($tableCollection as $table): ?>
@@ -34,7 +34,9 @@
 <?php include 'common_footer.php'; ?>  
 
 <script type="text/javascript">
-    $(document).ready(function() {
+
+    $('.filterli').click(function() {
+        $('#filterInput').focus();
     });
 
     function filter(element) {

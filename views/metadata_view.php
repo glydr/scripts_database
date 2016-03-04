@@ -1,6 +1,8 @@
 <?php include 'common_header.php';
 ?>
-
+<div style="text-align:center;padding-top:100px;width:50%;margin:auto;">
+    <h2>Reports Needing Review</h2>
+</div>
 <div class="filterBox" id="metaBox">
     <ul>
         <?php 

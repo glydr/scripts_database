@@ -44,7 +44,7 @@
                             </li>
                         <?php } ?>
                             <li id="metadataListItem">
-                                <div class="menuItem"><a href="index.php?type=metadata">Add Metadata</a> <span id="metadataOuter">[<span id="metadataDiv"></span>]</span></div>
+                                <div class="menuItem"><a href="index.php?type=metadata">Add Metadata</a> <span id="metadataDivContainer">[<span id="metadataDiv"></span>]</span></div>
                             </li>
                             <li><div class="menuItem" id="loginOutLink">
                         <?php

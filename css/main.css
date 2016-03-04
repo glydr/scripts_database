@@ -2,12 +2,11 @@ root {
     display: block;
 }
 
-#metadataOuter {
+#metadataDivContainer {
     background-color: red;
     color:white;
     padding:2px;
 }
-
 #logoContainer {
     position:relative;
     width:250px;
