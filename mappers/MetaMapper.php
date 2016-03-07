@@ -37,7 +37,7 @@ class MetaMapper extends BaseMapper {
                             max(seq) AS maxseq
                     FROM versions
                     GROUP BY script_id) mv on scripts.id = mv.script_id and versions.seq = maxseq
-                    JOIN users on mv.user_id = users.id
+                    JOIN users on versions.user_id = users.id
                     WHERE users.email = '$email' AND
                           users.email <> '' AND
                         (scripts.title = '' OR 

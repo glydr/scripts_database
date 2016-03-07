@@ -4,21 +4,21 @@
 
 <?php include 'common_header.php'; ?>
 
-    <div id="reportInfo" class="editReportSection marginize">
-        <h2>Report Information</h2>
-
+    <div id="reportInfo" class="panel panel-default" style="margin-bottom: 20px;">
+        <div class="panel-heading"><h3>Report Information</h2></div>
+        <div class="panel-body">
         <div class="reportRow">
-            <div class="label">Object Name:</div>
+            <div class="tlabel">Object Name:</div>
             <div class="data"><?php echo $report->getObject_name(); ?></div>
         </div>
         
         <div class="reportRow">
-            <div class="label">Title:</div>
+            <div class="tlabel">Title:</div>
             <div class="data"><?php echo $report->getTitle(); ?></div>
         </div>
 
         <div class="reportRow">
-            <div class="label">Target Audience:</div>
+            <div class="tlabel">Target Audience:</div>
             <div class="data">
                 <ul>
                 <?php foreach ($audiences as $audience): ?>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="reportRow">
-            <div class="label">Executed From:</div>
+            <div class="tlabel">Executed From:</div>
             <div class="data">
                 <ul>
                 <?php foreach ($executed_froms as $executing): ?>
@@ -44,45 +44,45 @@
         </div>
 
         <div class="reportRow">
-            <div class="label">SN Task #:</div>
+            <div class="tlabel">SN Task #:</div>
             <div class="data"><?php echo $report->getSn_task_num(); ?></div>
         </div>
 
         <div class="reportRow">
-            <div class="label">Ministry:</div>
+            <div class="tlabel">Ministry:</div>
             <div class="data"><?php echo $ministry->getName(); ?></div>
         </div>
 
         <div class="reportRow">
-            <div class="label">Description:</div>
+            <div class="tlabel">Description:</div>
             <div class="data">
                 <p><?php echo $report->getDescription(); ?></p>
             </div>
         </div>
 
         <div class="reportRow">
-            <div class="label">Latest Version:</div>
+            <div class="tlabel">Latest Version:</div>
             <div class="data">
                     Version <?php echo $report->getLastVersion()->getSeq(); ?>
             </div>
         </div>
-
+    </div>
     </div>
 
     <!-- Latest Version Section -->
     <?php include 'version_view_inner.php'; ?>
 
     <!-- All Version Section -->
-    <div id="reportInfo" class="editReportSection">
-        <h2>All Versions</h2>
-
+    <div id="reportInfo" class="panel panel-info">
+        <div class="panel-heading"><h3>All Versions</h3></div>
+        <div class="panel-body">
         <table class="allversions">
 
             <tr class="headRow">
                 <td>Seq</td>
                 <td>Beg Eff Date</td>
                 <td>User</td>
-                <td>Description</td>
+                <td style="width:250px;">Description</td>
                 <td>Source</td>
             </tr>
 
@@ -100,15 +100,16 @@
                     <td>
                     <a title="Click to see version info" 
                        href="index.php?type=version_view&version_id=<?php echo $version->getId(); ?>">
-                            <?php echo $version->getBeg_eff_dt_tm(); ?>
+                            <?php echo substr($version->getBeg_eff_dt_tm(),0,10); ?>
                         </a>
                     </td>
                     <td><?php echo $user->getDisplay_name(); ?></td>
                     <td><?php echo $short_desc; ?></td>
-                    <td><a href="index.php?type=view_source&version_id=<?php echo $version->getId(); ?>">Click to see source</a></td>
+                    <td><a href="index.php?type=view_source&version_id=<?php echo $version->getId(); ?>">View</a></td>
                 </tr>
             <?php endforeach; ?>
         </table>
+    </div>
     </div>
         
 <?php include 'common_footer.php'; ?>    

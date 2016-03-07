@@ -88,7 +88,19 @@ class DataSearcher {
 
         return $this->results;
     }
+
+    public function returnRecords() {
+        return $this->records;
+    }
     
+    public function setEndTime($endTime) {
+        $this->endTime = $endTime;
+    }
+
+    public function getTime() {
+        return $this->endTime - $this->startTime;
+    }
+
     private function createResultsIndex($object_name, $ministry) {
         return $object_name . $ministry;
     }

@@ -13,7 +13,7 @@
 		for this user.</p>
 
 		<div class="reportRow">
-			<div class="label">Object Name</div>
+			<div class="tlabel">Object Name</div>
 			<div class="data"></div>
 		</div>
 		<div class="reportRow">

@@ -10,7 +10,7 @@
     </ul>
 </div>
 <div class="tab-content">
-    <div style="width:45%;margin:auto;padding-bottom: 10px;"><input id="filterInput" class="form-control" placeholder="Filter..." type="text" onkeyup="filter(this)" /></div>
+    <div style="padding-bottom: 15px;"><input id="filterInput" class="form-control" placeholder="Filter..." type="text" onkeyup="filter(this)" /></div>
     <div class="filterBox tab-pane fade in active" id="tableBox">
         <ul class="list">
         <?php foreach ($tableCollection as $table): ?>

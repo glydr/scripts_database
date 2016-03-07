@@ -1,8 +1,9 @@
 <?php include 'common_header.php';
 ?>
-<div style="text-align:center;padding-top:100px;width:50%;margin:auto;">
-    <h2>Reports Needing Review</h2>
-</div>
+<div style="width:50%;margin:auto;" class="panel panel-default">
+<div class="panel-heading"><h3>Reports Needing Review</h3></div>
+
+<div class="panel-body">
 <div class="filterBox" id="metaBox">
     <ul>
         <?php 
@@ -15,5 +16,6 @@
         <?php endforeach; } ?>
     </ul>
 </div>
-
+</div>
+</div>
 <?php include 'common_footer.php'; ?>

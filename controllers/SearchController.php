@@ -26,7 +26,6 @@ class SearchController implements ICommand {
             $words = explode(' ', $search);
         }
 
-
         $filter = $request->get('filter');
         
         // Build the results collection

@@ -13,15 +13,14 @@ $prev = $request->getObject('prev');
 
 <?php include 'search_view.php'; ?>
 
-<div class="searchResults marginize">
-    <h2>Results</h2>
+<div class="searchResults">
+    <p style="color:grey; padding-bottom: 10px;"><?php echo sizeof($searcher->returnRecords());?> results...</p>
     <?php if (!is_array($results) || count($results) === 0): ?>
-        No Results Found
     <?php else: ?>
         <ul>
         <?php foreach ($results as $result): ?>
             <?php $first = reset($result); ?>
-            <li><a href="index.php?type=view_report&id=<?php echo $first->getReport_id(); ?>"><?php echo $first->getTitle(); ?></a>
+            <li><a style="font-weight:bold;" href="index.php?type=view_report&id=<?php echo $first->getReport_id(); ?>"><?php echo $first->getTitle(); ?></a>
                 <br><?php echo $first->getReport_description(); ?>
                 <br>Versions matched:
                 <?php foreach ($result as $version): ?>

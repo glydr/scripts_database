@@ -2,11 +2,20 @@ root {
     display: block;
 }
 
-#metadataDivContainer {
-    background-color: red;
-    color:white;
-    padding:2px;
+#reportInfo,#versionInfo{
+    width:750px;
+    margin:auto;
 }
+
+.tab-content {
+    width:630px;
+    margin:auto;
+}
+
+.tab-content input {
+    padding-top:10px;
+}
+
 #logoContainer {
     position:relative;
     width:250px;
@@ -136,22 +145,24 @@ div.menuItem {
 }
 
 div.searchBox {
-    padding:35px 0;
-    margin:auto;
-    width:50%;
+    margin: auto;
+    width: 750px;
 }
 
 div#filterMenuContainer {
     border-top: 1px solid #afafaf;
     padding: 20px 0 75px 0;
-    width:50%;
+    width:630px;
     height:75px;
     margin:auto;
 }
 
+#filterMenuContainer ul li {
+    font-size:18px;
+}
+
 .filterBox {
     margin:auto;
-    width:50%;
 }
 
 .filterBox h2 {
@@ -159,7 +170,6 @@ div#filterMenuContainer {
 }
 
 .stretch {
-    width: 100%;
     display: inline-block;
     font-size: 0;
     line-height: 0
@@ -183,12 +193,13 @@ div.filterBox li {
 }
 
 div.searchResults {
-    margin-left: 30px;
+    width:630px;
+    margin:auto;
 }
 
 div.searchResults li {
     list-style: none;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     width: 700px;
 }
 
@@ -199,6 +210,10 @@ table#allUsers {
 
 tr.tHead {
     font-weight: bold;
+}
+
+tr.tHead td {
+    width:300px;
 }
 
 table#allUsers td {
@@ -219,6 +234,14 @@ table#allUsers td.count {
 
 table.allversions tr.headRow {
     font-weight: bold;
+}
+
+table.allversions tr {
+    border-bottom: solid 1px #e0e0e0;
+}
+
+table.allversions tr:last-child {
+    border-bottom: none;
 }
 
 table.allversions td {

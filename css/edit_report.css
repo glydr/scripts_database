@@ -10,11 +10,6 @@ root {
     display: block;
 }
 
-body {
-    font: 15px Verdana, Geneva, sans-serif;
-    color: #11376E;
-}
-
 div.editReportSection {
     width: 900px;
     padding: 1px;
@@ -39,7 +34,7 @@ div.reportRow {
     clear:both;
 }
 
-div.label {
+div.tlabel {
     float: left;
     width: 200px;
     margin-left: 20px;
@@ -48,7 +43,7 @@ div.label {
 
 div.data {
     float: left;
-    width: 600px;
+    width: 475px;
 }
 
 div.data ul {
@@ -61,13 +56,21 @@ div.data li {
     list-style: none;
 }
 
-div#buttonRow {
-    clear: left;
-    margin-left: 252px;
+div.data ul li input {
+    margin:4px 4px 0 0 !important;
 }
 
-div.editReportSection input.text {
-    width: 300px;
+div#buttonRow {
+    width:200px;
+    padding-left:35px;
+}
+
+.panel input.text {
+    width: 100%;
+}
+
+.panel textarea {
+    width:100%;
 }
 
 div.editReportSection input.checkbox {
