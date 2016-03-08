@@ -60,7 +60,7 @@ if (isset($_GET['error']) && !empty($_GET['error'])) {
         
         <p>
             <label>Username:<br />
-                <input type="text" name="username" id="username" value=""  />
+                <input type="text" class="form-control" placeholder="domain\username" name="username" id="username" value=""  />
             </label>
             <label>Password:<br />
                 <input id="password" type="password" value="" name="password">
@@ -80,6 +80,8 @@ if (isset($_GET['error']) && !empty($_GET['error'])) {
 
     $('#visitorLoginLink').click(function() {
         $('#loginContainer').toggle("fast", function() {
+        $('#username').attr('value','');
+        $('#password').attr('value','');
         $('#username').attr('value','visitor');
         $('#password').attr('value','visitor');
         $('#submitButton').click();

@@ -2,7 +2,7 @@ root {
     display: block;
 }
 
-#reportInfo,#versionInfo{
+#reportInfo,#versionInfo,#allVersionsInfo{
     width:750px;
     margin:auto;
 }
@@ -94,7 +94,6 @@ div#pageHeader {
     margin-bottom: 50px;
     padding: 3px;
     position: relative;
-    overflow: hidden;
 }
 
 div#pageHeader img {
@@ -247,7 +246,7 @@ table.allversions tr:last-child {
 }
 
 table.allversions td {
-    padding-right: 15px;
+    padding-right: 40px;
 }
 
 span.bold {

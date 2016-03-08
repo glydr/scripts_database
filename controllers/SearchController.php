@@ -11,6 +11,10 @@ class SearchController implements ICommand {
         $registry = Registry::instance();
         $session = $registry->getSession();
         $db = $registry->getDatabase();
+
+                        // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         // Parse the searched for terms
         $search = $request->get('searchFor');

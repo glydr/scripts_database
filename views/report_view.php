@@ -7,73 +7,73 @@
     <div id="reportInfo" class="panel panel-default" style="margin-bottom: 20px;">
         <div class="panel-heading"><h3>Report Information</h2></div>
         <div class="panel-body">
-        <div class="reportRow">
-            <div class="tlabel">Object Name:</div>
-            <div class="data"><?php echo $report->getObject_name(); ?></div>
-        </div>
-        
-        <div class="reportRow">
-            <div class="tlabel">Title:</div>
-            <div class="data"><?php echo $report->getTitle(); ?></div>
-        </div>
+            <div class="reportRow">
+                <div class="tlabel">Object Name:</div>
+                <div class="data"><?php echo $report->getObject_name(); ?></div>
+            </div>
+            
+            <div class="reportRow">
+                <div class="tlabel">Title:</div>
+                <div class="data"><?php echo $report->getTitle(); ?></div>
+            </div>
 
-        <div class="reportRow">
-            <div class="tlabel">Target Audience:</div>
-            <div class="data">
-                <ul>
-                <?php foreach ($audiences as $audience): ?>
-                    <?php if ($audience): ?>
-                    <li><?php echo $audience->getDescription(); ?></li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                </ul>
+            <div class="reportRow">
+                <div class="tlabel">Target Audience:</div>
+                <div class="data">
+                    <ul>
+                    <?php foreach ($audiences as $audience): ?>
+                        <?php if ($audience): ?>
+                        <li><?php echo $audience->getDescription(); ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="reportRow">
+                <div class="tlabel">Executed From:</div>
+                <div class="data">
+                    <ul>
+                    <?php foreach ($executed_froms as $executing): ?>
+                        <?php if ($executing): ?>
+                        <li><?php echo $executing->getDescription(); ?></li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </ul>                    
+                </div>
+            </div>
+
+            <div class="reportRow">
+                <div class="tlabel">SN Task #:</div>
+                <div class="data"><?php echo $report->getSn_task_num(); ?></div>
+            </div>
+
+            <div class="reportRow">
+                <div class="tlabel">Ministry:</div>
+                <div class="data"><?php echo $ministry->getName(); ?></div>
+            </div>
+
+            <div class="reportRow">
+                <div class="tlabel">Description:</div>
+                <div class="data">
+                    <p><?php echo $report->getDescription(); ?></p>
+                </div>
+            </div>
+
+            <div class="reportRow">
+                <div class="tlabel">Latest Version:</div>
+                <div class="data">
+                        Version <?php echo $report->getLastVersion()->getSeq(); ?>
+                </div>
             </div>
         </div>
-
-        <div class="reportRow">
-            <div class="tlabel">Executed From:</div>
-            <div class="data">
-                <ul>
-                <?php foreach ($executed_froms as $executing): ?>
-                    <?php if ($executing): ?>
-                    <li><?php echo $executing->getDescription(); ?></li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                </ul>                    
-            </div>
-        </div>
-
-        <div class="reportRow">
-            <div class="tlabel">SN Task #:</div>
-            <div class="data"><?php echo $report->getSn_task_num(); ?></div>
-        </div>
-
-        <div class="reportRow">
-            <div class="tlabel">Ministry:</div>
-            <div class="data"><?php echo $ministry->getName(); ?></div>
-        </div>
-
-        <div class="reportRow">
-            <div class="tlabel">Description:</div>
-            <div class="data">
-                <p><?php echo $report->getDescription(); ?></p>
-            </div>
-        </div>
-
-        <div class="reportRow">
-            <div class="tlabel">Latest Version:</div>
-            <div class="data">
-                    Version <?php echo $report->getLastVersion()->getSeq(); ?>
-            </div>
-        </div>
-    </div>
     </div>
 
     <!-- Latest Version Section -->
     <?php include 'version_view_inner.php'; ?>
 
     <!-- All Version Section -->
-    <div id="reportInfo" class="panel panel-info">
+    <div id="allVersionsInfo" class="panel panel-info" style="margin-bottom:20px;">
         <div class="panel-heading"><h3>All Versions</h3></div>
         <div class="panel-body">
         <table class="allversions">

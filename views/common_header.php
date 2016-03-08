@@ -13,8 +13,7 @@
         <script language="JavaScript" type="text/JavaScript" src="./js/jquery.validate.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/edit_report.js"></script>
         <script language="JavaScript" type="text/JavaScript" src="./js/edit_user.js"></script>
-        <script language="JavaScript" type="text/JavaScript" src="./js/bootstrap.js"></script>
-        
+        <script language="JavaScript" type="text/JavaScript" src="./js/bootstrap.js"></script> 
     </head>
     <body class="wrapper">
         

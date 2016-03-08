@@ -14,6 +14,5 @@ if(metadataCount > 0) {
 }
 
 </script>
-<div style="padding-bottom: 30px;""
     </body>
 </html>
