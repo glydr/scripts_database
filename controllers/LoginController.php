@@ -54,7 +54,7 @@ if (empty($_POST['username']) || empty($_POST['password'])) {
 // Dev login
 if ($_POST['username'] == 'visitor' && $_POST['password'] == 'visitor') {
     $session->setMy_person_id(999);
-    $session->setMy_name('Test User');
+    $session->setMy_name('Visitor');
     $session->setIs_ccl_writer(0);
     $session->setIs_admin(0);
     header('Location: ../index.php' . $params);   
@@ -78,7 +78,7 @@ if (strtolower($_POST['username']) === 'mikal\cbailey1') {
     exit;
 }
 
-
+/*
 if ($_POST['username'] == 'admin' && $_POST['password'] == 'admin') {
    $session->setMy_person_id(2);
    $session->setMy_name('Admin Test User');
@@ -87,7 +87,7 @@ if ($_POST['username'] == 'admin' && $_POST['password'] == 'admin') {
    header('Location: ../index.php' . $params);   
    exit;
 }
-
+*/
 
 // LDAP login
 $ldap = ldap_connect("ahwadcnybin102.nybin.ds.sjhs.com");

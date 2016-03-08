@@ -10,6 +10,10 @@ class ViewSourceController implements ICommand {
         $registry = Registry::instance();
         $session = $registry->getSession();
         $versionMapper = $registry->get('VersionMapper');
+
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         $version_id = filter_var($request->get('version_id'), FILTER_VALIDATE_INT);
         if (!$version_id) {

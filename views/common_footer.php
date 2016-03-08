@@ -1,8 +1,12 @@
 <?php
-
+if(isset($metaDataCollection) && $metaDataCollection != "") {
+    foreach ($metaDataCollection as $metaItem): 
+        $session->setMetadataCount($session->getMetadataCount() + 1);
+    endforeach; 
+} 
 ?>
 <script type="text/javascript">
-var metadataCount = <?php if(isset($_SESSION['metadataCount'])) {echo json_encode($_SESSION['metadataCount']);} else{echo 0;} ?>;
+var metadataCount = <?php echo json_encode($session->getMetadataCount());?>;
 if(metadataCount > 0) {
 	$('#metadataDiv').text(metadataCount);
 } else {

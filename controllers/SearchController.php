@@ -18,13 +18,8 @@ class SearchController implements ICommand {
             echo 'Seach cannot be null';
             exit;
         }
-
-        if(substr($search,0,1) == '"' && substr($search,-1,1) == '"') {
-            str_replace('"','',$search);
-            $words[0] = $search;
-        } else {
-            $words = explode(' ', $search);
-        }
+        
+        $words = explode(' ', $search);
 
         $filter = $request->get('filter');
         

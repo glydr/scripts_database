@@ -17,6 +17,10 @@ class UserEditController implements ICommand {
         }
         $userMapper = $registry->get('UserMapper');
         $queueMapper = $registry->get('QueueMapper');
+
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         $user_id = filter_var($request->get('user_id'), FILTER_VALIDATE_INT);
         if ($user_id === FALSE) {

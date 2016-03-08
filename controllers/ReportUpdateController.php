@@ -19,6 +19,10 @@ class ReportUpdateController implements ICommand {
         $reportMapper = $registry->get('ReportMapper');
         $versionMapper = $registry->get('VersionMapper');
         $audienceMapper = $registry->get('AudienceMapper');
+
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         // Parse the request
         $script_id = filter_var($request->get('script_id'), FILTER_VALIDATE_INT);

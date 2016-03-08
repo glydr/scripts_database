@@ -1,9 +1,3 @@
-<?php
-            if(isset($metaDataCollection) && $metaDataCollection != "") {
-                foreach ($metaDataCollection as $metaItem): 
-                    $session->setMetadataCount($session->getMetadataCount() + 1);
-                endforeach; } 
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +19,7 @@
     <body class="wrapper">
         
         <div id="pageHeader">
-            <a href="http://northwestregion.ascensionhealth.org/scripts_database/beta/"><img src="./images/logo.png" /></a>
+            <a href="http://northwestregion.ascensionhealth.org/scripts_database/"><img src="./images/logo.png" /></a>
             <h1>Ascension Knowledge Repository</h1>
             <div id="menuContainer">
                 <ul>

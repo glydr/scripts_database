@@ -77,6 +77,7 @@ root {
     font-weight: normal;
     color: #777;
     font-size: 14px;
+    width:100%;
 }
 
 #loginContainer p label input {
@@ -85,6 +86,7 @@ root {
     border: 1px solid #ddd;
     font-size: 24px;
     color:#32373c;
+    width:100%;
 }
 
 div#pageHeader {

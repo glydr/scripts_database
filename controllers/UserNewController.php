@@ -9,6 +9,10 @@ class UserNewController implements ICommand {
         $registry = Registry::instance();
         $session = $registry->getSession();
         /* @var $session Session */
+
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         if (!$session->getIs_admin()) {
             echo "Not Authorized to Edit";

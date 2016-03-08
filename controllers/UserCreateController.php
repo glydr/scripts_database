@@ -23,6 +23,10 @@ class UserCreateController implements ICommand {
         $is_admin = $request->get('is_admin');
         $is_ccl_writer = $request->get('is_ccl_writer');
 
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
+
         // Load the user
         /* @var $user User */
         $user = new User($cerner_username);

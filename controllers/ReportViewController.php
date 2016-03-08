@@ -15,6 +15,10 @@ class ReportViewController implements ICommand {
         $ministryMapper = $registry->get('MinistryMapper');
         $audienceMapper = $registry->get('AudienceMapper');
         $executingFromMapper = $registry->get('ExecutingFromMapper');
+
+                // Load individual's reports missing metadata
+        $metaMapper = $registry->get('MetaMapper');
+        $metaDataCollection = $metaMapper->findAllMissingMetaData($session->getMy_person_id());
         
         // Extract vars from GET and Load the report
         $report_id = filter_var($request->get('id'), FILTER_VALIDATE_INT);
